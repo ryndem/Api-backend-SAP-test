@@ -1,0 +1,6 @@
+@VentaDigitalPQF_HostAddress = http://localhost:5052
+
+GET {{VentaDigitalPQF_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
