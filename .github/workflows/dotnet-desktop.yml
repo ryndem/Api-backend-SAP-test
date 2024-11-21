@@ -31,5 +31,8 @@ jobs:
       run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
       run: dotnet build "VentaDigitalPQF" --configuration Release --output ./myapp
+
+    - name: dotnet publish
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration Release --output ./myapp
       
        
