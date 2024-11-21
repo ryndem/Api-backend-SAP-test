@@ -32,11 +32,7 @@ jobs:
 
     - name: dotnet publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration Release --output ./myapp
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-       name: myapp-artifact
-       path: ./myapp
+   
   deploy:
     needs: build
     runs-on: self-hosted-qa
@@ -48,10 +44,6 @@ jobs:
              Stop-Website -Name $env:IIS_SITE_NAME
        shell: powershell
 
-     - name: Download Build Artifacts
-       uses: actions/download-artifact@v3
-       with:
-         name: myapp-artifact
      - name: Copy Files
        run: |
          $source = "$env:GITHUB_WORKSPACE/myapp"
@@ -59,6 +51,10 @@ jobs:
          Get-ChildItem -Path $source -Recurse | ForEach-Object {
          Copy-Item -Path $_.FullName -Destination $destination -Force
          }
+       shell: powershell
+
+     - name: Start IIS Site
+       run: Start-Website -Name $env:IIS_SITE_NAME
        shell: powershell
       
        
