@@ -54,7 +54,7 @@ jobs:
          name: myapp-artifact
      - name: Copy Files Excluding Specific Patterns
        run: |
-           $source = "./myapp-artifact"
+           $source = "$env:GITHUB_WORKSPACE/myapp"
            $destination = $env:IS_SITE_PATH
              Get-ChildItem -Path $source -Recurse | ForEach-Object {
            Copy-Item -Path $_.FullName -Destination $_.FullName.Replace($source, $destination) -Force
