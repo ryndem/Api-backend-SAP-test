@@ -54,10 +54,12 @@ jobs:
          name: myapp-artifact
      - name: Copy Files Excluding Specific Patterns
        run: |
-          $source = "./myapp"
-          $destination = $env:IIS_SITE_PATH
-          $destPath = $_.FullName.Replace($source, $destination)
-          Copy-Item -Path $_.FullName -Destination $destPath -Force
+           $source = "./myapp"
+           $destination = $env:IS_SITE_PATH
+           if (!(Test-Path -Path $source)) {
+            Write-Error "La carpeta fuente $source no existe. Verifica la ruta."
+           exit 1
+             }
           
        shell: powershell  
       
