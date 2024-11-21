@@ -1,0 +1,33 @@
+
+name: Proyecto prueba
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: 
+      - qa
+      - uat
+      - main
+    types: 
+      - closed
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: self-hosted-qa  
+
+    env:
+      IIS_SITE_NAME: "VentaDigitalDevops"
+      IS_SITE_PATH: "C:\\Sitios\\VentaDigitalDevops"              
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+       
