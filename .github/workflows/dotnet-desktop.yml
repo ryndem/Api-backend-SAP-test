@@ -52,13 +52,13 @@ jobs:
        uses: actions/download-artifact@v3
        with:
          name: myapp-artifact
-     - name: Copy Files Excluding Specific Patterns
+     - name: Copy Files
        run: |
-           $source = "$env:GITHUB_WORKSPACE/myapp"
-           $destination = $env:IS_SITE_PATH
-             Get-ChildItem -Path $source -Recurse | ForEach-Object {
-           Copy-Item -Path $_.FullName -Destination $_.FullName.Replace($source, $destination) -Force
-           }
+         $source = "$env:GITHUB_WORKSPACE/myapp"
+         $destination = $env:IS_SITE_PATH
+         Get-ChildItem -Path $source -Recurse | ForEach-Object {
+         Copy-Item -Path $_.FullName -Destination $destination -Force
+         }
        shell: powershell
       
        
