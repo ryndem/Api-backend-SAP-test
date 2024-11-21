@@ -11,16 +11,14 @@ on:
       - main
     types: 
       - closed
-
+env:
+      WORKING_DIRECTORY: VentaDigitalPQF
+      IIS_SITE_NAME: "VentaDigitalDevops"
+      IS_SITE_PATH: "C:\\Sitios\\VentaDigitalDevops" 
 jobs:
 
   build:
     runs-on: self-hosted-qa  
-
-    env:
-      WORKING_DIRECTORY: VentaDigitalPQF
-      IIS_SITE_NAME: "VentaDigitalDevops"
-      IS_SITE_PATH: "C:\\Sitios\\VentaDigitalDevops"              
 
     steps:
     - name: Checkout
