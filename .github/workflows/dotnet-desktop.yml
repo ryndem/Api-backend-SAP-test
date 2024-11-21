@@ -49,5 +49,9 @@ jobs:
        run: |
           $source = "./myapp"
           $destination = $env:IIS_SITE_PATH
+          $destPath = $_.FullName.Replace($source, $destination)
+          Copy-Item -Path $_.FullName -Destination $destPath -Force
+          }
+       shell: powershell  
       
        
