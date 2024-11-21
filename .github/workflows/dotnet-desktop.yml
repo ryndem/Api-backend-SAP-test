@@ -57,7 +57,15 @@ jobs:
          $source = "$env:GITHUB_WORKSPACE/myapp"
          $destination = $env:IS_SITE_PATH
          Get-ChildItem -Path $source -Recurse | ForEach-Object {
+         try {
+         # Intentar copiar solo si el archivo no está bloqueado
+         $file = [System.IO.File]::Open($_.FullName, 'Open', 'Read', 'None')
+         $file.Close()
          Copy-Item -Path $_.FullName -Destination $destination -Force
+          }
+         catch {
+         Write-Host "Archivo en uso, omitiendo: $($_.FullName)"
+              }
          }
        shell: powershell
      - name: Start POOL Site
