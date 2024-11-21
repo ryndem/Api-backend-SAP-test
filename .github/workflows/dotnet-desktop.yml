@@ -14,7 +14,9 @@ on:
 env:
       WORKING_DIRECTORY: VentaDigitalPQF
       IIS_SITE_NAME: "VentaDigitalDevops"
+      IIS_POOL_NAME: "AppCoreDevops"
       IS_SITE_PATH: "C:\\Sitios\\VentaDigitalDevops" 
+      
 jobs:
 
   build:
@@ -42,7 +44,13 @@ jobs:
        run: |
              Import-Module WebAdministration
              Stop-Website -Name $env:IIS_SITE_NAME
+              $appPoolName = $env:IIS_POOL_NAME
+              # Detener el Pool de Aplicaciones
+              Stop-WebAppPool -Name $appPoolName
        shell: powershell
+
+       
+   
 
      - name: Copy Files
        run: |
@@ -52,7 +60,9 @@ jobs:
          Copy-Item -Path $_.FullName -Destination $destination -Force
          }
        shell: powershell
-
+     - name: Start POOL Site
+       run: Start-WebAppPool -Name $env:IIS_POOL_NAME
+       shell: powershell 
      - name: Start IIS Site
        run: Start-Website -Name $env:IIS_SITE_NAME
        shell: powershell
