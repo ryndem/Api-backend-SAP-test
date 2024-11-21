@@ -34,3 +34,17 @@ jobs:
       run: dotnet build "VentaDigitalPQF" --configuration Release --output ./myapp
     - name: dotnet publish
       run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration Release --output ./myapp
+
+  deploy:
+    needs: build
+    runs-on: self-hosted-qa
+    steps:
+     - name: Stop  IIS Site
+       run: |
+             Import-Module WebAdministration
+             Stop-Website -Name $env:IIS_SITE_NAME
+              $appPoolName = $env:IIS_POOL_NAME
+              # Detener el Pool de Aplicaciones
+              Stop-WebAppPool -Name $appPoolName
+       shell: powershell
+
