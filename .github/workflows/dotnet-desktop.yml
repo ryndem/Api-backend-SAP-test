@@ -54,13 +54,11 @@ jobs:
          name: myapp-artifact
      - name: Copy Files Excluding Specific Patterns
        run: |
-           $source = "./myapp"
+           $source = "./myapp-artifact"
            $destination = $env:IS_SITE_PATH
-           if (!(Test-Path -Path $source)) {
-            Write-Error "La carpeta fuente $source no existe. Verifica la ruta."
-           exit 1
-             }
-          
-       shell: powershell  
+             Get-ChildItem -Path $source -Recurse | ForEach-Object {
+           Copy-Item -Path $_.FullName -Destination $_.FullName.Replace($source, $destination) -Force
+           }
+       shell: powershell
       
        
