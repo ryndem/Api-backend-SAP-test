@@ -43,5 +43,11 @@ jobs:
              Import-Module WebAdministration
              Stop-Website -Name $env:IIS_SITE_NAME
        shell: powershell
+
+
+     - name: Copy Files Excluding Specific Patterns
+       run: |
+          $source = "./myapp"
+          $destination = $env:IIS_SITE_PATH
       
        
