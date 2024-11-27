@@ -61,6 +61,14 @@ jobs:
           }
          catch {
          Write-Host "Archivo en uso, omitiendo: $($_.FullName)"
+         try {
+            Unlock-File -Path $_.FullName
+            Copy-Item -Path $_.FullName -Destination $destination -Force
+            Write-Host "Archivo desbloqueado y copiado: $($_.FullName)"
+              }
+          catch {
+            Write-Host "No se pudo copiar: $($_.FullName)"
+                }
               }
          }
        shell: powershell
