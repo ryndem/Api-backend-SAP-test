@@ -70,7 +70,7 @@ namespace Logic.VentaDigitalPQF.Services.Order
                 new()
                 {
                     IdOrder = Guid.NewGuid(),
-                    Folio = "Folio11111",
+                    Folio = "Folio111111",
                     IdfilePdf = Guid.NewGuid(),
                     RegistrationDate = DateTime.Now.AddDays(-30),
                     Items = 5,
